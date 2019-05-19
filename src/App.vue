@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <progress-ring :current="health" :max="maxHealth" :innerText="'Level: '+characterLevel"></progress-ring>
+    <progress-ring :current="health" :max="maxHealth" :innerText="'Level: '+characterLevel" size="125px" color="yellow"></progress-ring>
     <input type="range" min="0" max="100" v-model="health"></input>
   </div>
 </template>
@@ -40,7 +40,7 @@ body {
     >input[type=range] {
       margin: 3px;
       -webkit-appearance: none;
-      width: 150px;
+      width: 125px;
     }
     > input[type=range]::-webkit-slider-thumb {
       box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;

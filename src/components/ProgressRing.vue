@@ -1,7 +1,7 @@
 <template>
-  <div :class="$style['ringContainer']">
+  <div :class="$style['ringContainer']" :style="'width: '+ringSize+'; height: '+ringSize+';'">
     <div :class="$style['background']" ></div>
-    <div :class="$style['ring']" :style="'clip-path:'+ mask +';'"></div>
+    <div :class="$style['ring']" :style="'clip-path:'+ mask +';'+ringColor"></div>
     <div :class="$style['center']" >
       <h3>{{innerText}}</h3>
     </div>
@@ -10,13 +10,29 @@
 
 <script>
 export default {
-  props: ['current', 'max', 'innerText'],
+  props: ['current', 'max', 'innerText','size', 'color'],
   data(){
     return{
 
     }
   },
   computed: {
+    ringSize: function(){
+      let result = "125px";
+      if(typeof this.size !== "undefined"){
+        result = this.size;
+      }
+      return result;
+    },
+    ringColor: function(){
+      let result = "background-color: ";
+      if(typeof this.color !== "undefined"){
+        result += this.color;
+      }else{
+        result += "yellow";
+      }
+      return (result+";");
+    },
     mask: function(){
       let result = "polygon(50% -50%, 50% 50%, ";
       let perc = 100*(this.current/this.max);
@@ -52,11 +68,8 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 150px;
-    height: 150px;
     margin: 3px;
     .ring{
-      background-color: rgb(220,220,0);
       width: 90%;
       height: 90%;
       border-radius: 50%;
@@ -75,7 +88,7 @@ export default {
       justify-content: center;
       color: white;
       box-sizing: border-box;
-      border: 5px solid rgba(0,0,0,0.05)
+      border: 5px solid rgba(0,0,0,0.05);
     }
     .background{
       background-color: #666;
