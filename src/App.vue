@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <progress-ring :current="health" :max="maxHealth" :innerText="'Level: '+characterLevel" size="125px" color="yellow"></progress-ring>
+    <progress-ring :current="health" :max="maxHealth"  size="80px" color="yellow"></progress-ring>
     <input type="range" min="0" max="100" v-model="health"></input>
   </div>
 </template>

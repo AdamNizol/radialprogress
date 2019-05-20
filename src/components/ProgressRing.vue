@@ -1,7 +1,8 @@
 <template>
   <div :class="$style['ringContainer']" :style="'width: '+ringSize+'; height: '+ringSize+';'">
     <div :class="$style['background']" ></div>
-    <div :class="$style['ring']" :style="'clip-path:'+ mask +';'+ringColor"></div>
+    <div :class="$style['ring']" :style="'clip-path:'+ mask +';'"></div>
+    <div :class="$style['ring-border']" ></div>
     <div :class="$style['center']" >
       <h3>{{innerText}}</h3>
     </div>
@@ -63,6 +64,14 @@ export default {
 </script>
 
 <style module lang="less">
+  .ring-border{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    box-sizing: border-box;
+    background-image: url(https://i.imgur.com/zjIWXLV.png);
+    background-size: contain;
+  }
   .ringContainer{
     position: relative;
     display: flex;
@@ -70,32 +79,41 @@ export default {
     justify-content: center;
     margin: 3px;
     .ring{
-      width: 90%;
-      height: 90%;
-      border-radius: 50%;
+      width: 100%;
+      height: 100%;
       position: absolute;
       box-sizing: border-box;
-      border: 5px solid rgba(0,0,0,0.2)
+      //border-radius: 50%;
+      background-image: url(https://i.imgur.com/y67bqFC.png);
+      background-size: contain;
+      //border: 5px solid rgba(0,0,0,0.2);
     }
     .center{
-      background-color: #666;
+      /*background-color: #666;
+      border-radius: 50%;*/
+      background-image: url(https://i.imgur.com/4CpEzjw.png);
+      background-size: contain;
       position: absolute;
-      width: 75%;
-      height: 75%;
-      border-radius: 50%;
+      width: 100%;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
       box-sizing: border-box;
-      border: 5px solid rgba(0,0,0,0.05);
+      //border: 5px solid rgba(0,0,0,0.05);
+      >h3{
+        color: black;
+      }
     }
     .background{
-      background-color: #666;
+      //background-color: #666;
+      //border-radius: 50%;
+      background-image: url(https://i.imgur.com/L0t0VGD.png);
+      background-size: contain;
       position: absolute;
       width: 100%;
       height: 100%;
-      border-radius: 50%;
     }
   }
 </style>
