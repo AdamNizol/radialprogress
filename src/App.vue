@@ -1,17 +1,20 @@
 <template>
   <div id="app">
-    <progress-ring :current="health" :max="maxHealth"  size="80px" color="yellow"></progress-ring>
+    <progress-radial :current="health" :max="maxHealth"  size="80px" color="yellow"></progress-radial>
+    <progress-ring :current="health" :max="maxHealth"  size="80px" color="#ada976"></progress-ring>
     <input type="range" min="0" max="100" v-model="health"></input>
   </div>
 </template>
 
 <script>
+import ProgressRadial from './components/ProgressRadial.vue'
 import ProgressRing from './components/ProgressRing.vue'
 
 export default {
   name: 'app',
   components: {
-    'progress-ring':ProgressRing
+    'progress-radial':ProgressRadial,
+    'progress-ring':ProgressRing,
   },
   data(){
     return{

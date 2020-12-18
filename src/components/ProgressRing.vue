@@ -1,11 +1,8 @@
 <template>
-  <div :class="$style['ringContainer']" :style="'width: '+ringSize+'; height: '+ringSize+';'">
-    <div :class="$style['background']" ></div>
-    <div :class="$style['ring']" :style="'clip-path:'+ mask +';'"></div>
-    <div :class="$style['ring-border']" ></div>
-    <div :class="$style['center']" >
-      <h3>{{innerText}}</h3>
-    </div>
+  <div :class="$style['ringContainer']" :style="'width: '+ringSize+'; height: '+ringSize+';'" >
+    <svg viewBox="0 0 100 100" style="height: 100%; width: 100%" preserveAspectRatio="none">
+       <circle :style="ringStyle" cx="50" cy="50" :r="innerRadius" fill="#456" />
+    </svg>
   </div>
 </template>
 
@@ -14,7 +11,7 @@ export default {
   props: ['current', 'max', 'innerText','size', 'color'],
   data(){
     return{
-
+      ringWidth: 13
     }
   },
   computed: {
@@ -26,94 +23,38 @@ export default {
       return result;
     },
     ringColor: function(){
-      let result = "background-color: ";
+      let result = "";
       if(typeof this.color !== "undefined"){
         result += this.color;
       }else{
         result += "yellow";
       }
-      return (result+";");
+      return (result);
     },
-    mask: function(){
-      let result = "polygon(50% -50%, 50% 50%, ";
-      let perc = 100*(this.current/this.max);
-      let p = ((perc%25)/25);
-      if(perc < 25){
-        let x = (100*p)+50;
-        let y = (100*p)-50;
-        result += x+"% "+y+"%)";
-      }else if(perc < 50){
-        let x = 150-(100*p);
-        let y = (100*p)+50;
-        result += +x+"% "+y+"%, 150% 50%)";
-      }else if(perc < 75){
-        let x = 50-(100*p);
-        let y = 150-(100*p);
-        result += x+"% "+y+"%, 50% 150%, 150% 50%)";
-      }else if(perc < 100){
-        let x = (100*p)-50;
-        let y = 50-(100*p);
-        result += x+"% "+y+"%, -50% 50%, 50% 150%, 150% 50%)";
-      }else{
-        result = "";
-      }
+    innerRadius: function(){
+      return 50-(this.ringWidth/2);
+    },
+    ringStyle: function(){
+      let result = 'stroke: '+this.ringColor+'; stroke-width: '+this.ringWidth+';'
+      let total = 2*Math.PI*this.innerRadius
+      let curr = (this.current/100)*total
+      result += 'stroke-dasharray: '+ curr + ' ' + (total-curr)+';';
+      result += 'transform: rotate(-90deg); transform-origin: 50% 50%; transition: 0.2s;'
       return result;
-    }
+    },
   }
 }
 </script>
 
 <style module lang="less">
-  .ring-border{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    box-sizing: border-box;
-    background-image: url(https://i.imgur.com/zjIWXLV.png);
-    background-size: contain;
-  }
-  .ringContainer{
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 3px;
-    .ring{
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      box-sizing: border-box;
-      //border-radius: 50%;
-      background-image: url(https://i.imgur.com/y67bqFC.png);
-      background-size: contain;
-      //border: 5px solid rgba(0,0,0,0.2);
-    }
-    .center{
-      /*background-color: #666;
-      border-radius: 50%;*/
-      background-image: url(https://i.imgur.com/4CpEzjw.png);
-      background-size: contain;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      box-sizing: border-box;
-      //border: 5px solid rgba(0,0,0,0.05);
-      >h3{
-        color: black;
-      }
-    }
-    .background{
-      //background-color: #666;
-      //border-radius: 50%;
-      background-image: url(https://i.imgur.com/L0t0VGD.png);
-      background-size: contain;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
-  }
+.ringContainer{
+  // background-color: blue;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  margin: 3px;
+  // border-radius: 50%;
+  // box-sizing: border-box;
+}
+
 </style>
