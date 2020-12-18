@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <progress-radial :current="health" :max="maxHealth"  size="80px" color="yellow"></progress-radial>
-    <progress-ring :current="health" :max="maxHealth"  size="80px" color="#ada976"></progress-ring>
+    <progress-radial :current="health" :max="maxHealth"  size="80px" color="yellow" :innerText="health"></progress-radial>
+    <progress-ring :current="health" :max="maxHealth"  size="80px" color="#938d76" :innerText="health"></progress-ring>
     <input type="range" min="0" max="100" v-model="health"></input>
   </div>
 </template>
